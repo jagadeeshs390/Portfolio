@@ -1,5 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Force page scroll to top on load (ignore previous cached scroll position)
+  if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+
   // ==========================================
   // LIGHT/DARK THEME SYSTEM
   // ==========================================
@@ -318,25 +324,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const pptPath = proj.pptUrl;
       const pdfPath = pptPath.replace('.pptx', '.pdf');
 
-      // Attempt to load PDF. Check local existence via Fetch.
-      fetch(pdfPath, { method: 'HEAD' })
-        .then(response => {
-          if (response.ok) {
-            previewIframe.src = pdfPath;
-            previewIframe.style.display = 'block';
-            fallbackMsg.style.display = 'none';
-          } else {
-            previewIframe.src = '';
-            previewIframe.style.display = 'none';
-            fallbackMsg.style.display = 'flex';
-          }
-        })
-        .catch(() => {
-          // Fallback if fetch is blocked by CORS/offline
-          previewIframe.src = pdfPath;
-          previewIframe.style.display = 'block';
-          fallbackMsg.style.display = 'flex';
-        });
+      // Load the PDF directly into the iframe.
+      // Direct load works consistently offline, under file:// protocols, and on local web servers without CORS blocks.
+      previewIframe.src = pdfPath;
+      previewIframe.style.display = 'block';
+      fallbackMsg.style.display = 'none';
 
       previewModal.classList.add('active');
     }
