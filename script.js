@@ -210,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   const contactModal = document.getElementById('contact-modal');
   const contactModalClose = document.getElementById('modal-close-btn');
-  const contactBtnHero = document.getElementById('get-in-touch-hero');
   const contactBtnHeader = document.getElementById('contact-btn-header');
 
   function openContactModal(e) {
@@ -223,10 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Bind email click elements to modal triggers
-  if (contactBtnHero) {
-    contactBtnHero.addEventListener('click', openContactModal);
-  }
-
   if (contactBtnHeader) {
     contactBtnHeader.addEventListener('click', openContactModal);
   }
@@ -464,4 +459,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 600);
     });
   });
+
+  // ==========================================
+  // VIEWPORT SCROLL REVEAL (INTERSECTION OBSERVER)
+  // ==========================================
+  const revealElements = document.querySelectorAll('.scroll-reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => {
+      revealObserver.observe(el);
+    });
+  } else {
+    // Fallback if browser doesn't support IntersectionObserver
+    revealElements.forEach(el => el.classList.add('active'));
+  }
 });

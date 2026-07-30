@@ -76,21 +76,21 @@
       
       <!-- Hero Left: Content & Call to Actions -->
       <div class="hero-content">
-        <div class="greeting-wrapper">
+        <div class="greeting-wrapper fade-in-up">
           <span class="greeting">Hi</span><span class="comma">,</span>
         </div>
-        <h1 class="hero-title">
+        <h1 class="hero-title fade-in-up delay-1">
           I am <span class="accent">Jagadeeshwaran S</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle fade-in-up delay-2">
           Cybersecurity Enthusiast and Offensive Security Specialist. Specialize in network security, system hardening, and threat-validation workflows.
         </p>
-        <div class="hero-buttons">
-          <button class="btn-outline" id="get-in-touch-hero">
-            Get in touch
-          </button>
+        <div class="hero-buttons fade-in-up delay-3">
+          <a href="certs/RHCSA_Internship_Cert.pdf" target="_blank" class="btn-outline" id="internships-hero-btn">
+            Internships Done
+          </a>
           <a href="certs/Resume.pdf" target="_blank" class="btn-primary">
-            Download CV
+            Resume
             <span class="download-circle">
               <i class='bx bx-download'></i>
             </span>
@@ -192,12 +192,12 @@
     <div class="about-container">
       
       <!-- Section Title -->
-      <h2 class="about-section-title">About Me</h2>
+      <h2 class="about-section-title scroll-reveal reveal-slide-up">About Me</h2>
       
       <!-- Content Grid -->
       <div class="about-grid">
         <!-- Left: Bio Statement -->
-        <div class="about-bio">
+        <div class="about-bio scroll-reveal reveal-slide-left">
           <p>
             Talented cybersecurity enthusiast with a strong focus on offensive security auditing, network analysis, and system architecture protection. Combining server systems hardening practices with proactive scripting, I identify hidden risks before adversaries can exploit them. 
           </p>
@@ -207,7 +207,7 @@
         </div>
         
         <!-- Right: Stats Grid -->
-        <div class="about-stats">
+        <div class="about-stats scroll-reveal reveal-slide-right">
           <div class="stat-box">
             <h3 class="stat-number">1+</h3>
             <p class="stat-label">Years of<br>Project Dev</p>
@@ -225,11 +225,11 @@
 
       <!-- Services Sub-Grid -->
       <div class="services-wrapper">
-        <h3 class="services-title">Services I offer</h3>
+        <h3 class="services-title scroll-reveal reveal-slide-up">Services I offer</h3>
         <div class="services-grid">
           
           <!-- Card 1: Lime Green -->
-          <div class="service-card card-lime">
+          <div class="service-card card-lime scroll-reveal reveal-slide-up reveal-delay-1">
             <div class="service-icon">
               <i class='bx bx-terminal'></i>
             </div>
@@ -240,7 +240,7 @@
           </div>
 
           <!-- Card 2: Mint Green -->
-          <div class="service-card card-mint">
+          <div class="service-card card-mint scroll-reveal reveal-slide-up reveal-delay-2">
             <div class="service-icon">
               <i class='bx bx-shield-quarter'></i>
             </div>
@@ -251,7 +251,7 @@
           </div>
 
           <!-- Card 3: Soft Violet -->
-          <div class="service-card card-violet">
+          <div class="service-card card-violet scroll-reveal reveal-slide-up reveal-delay-3">
             <div class="service-icon">
               <i class='bx bx-code-alt'></i>
             </div>
@@ -272,7 +272,7 @@
     <div class="projects-container">
       
       <!-- Section Title with sketchy circle decoration -->
-      <div class="projects-header">
+      <div class="projects-header scroll-reveal reveal-slide-up">
         <h2 class="projects-title">
           Recent <span class="sketchy-wrapper">Project<svg class="sketchy-circle" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 50 C 5 20, 95 20, 95 50 C 95 80, 5 80, 7 50 C 9 30, 85 25, 90 55" stroke="#5e3bee" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
         </h2>
@@ -282,7 +282,7 @@
       <div class="single-project-container">
         
         <!-- Project Card: AgroSonic -->
-        <div class="single-project-card">
+        <div class="single-project-card scroll-reveal reveal-slide-up reveal-delay-1">
           <div class="project-image-box">
             <img src="images/agrosonic_mockup.png" alt="AgroSonic Defence System UI Dashboard" class="project-img-display">
             <!-- If images fail to load, a fallback placeholder design is shown via CSS -->
@@ -320,12 +320,12 @@
   <section id="certifications" class="certs-section">
     <div class="certs-container">
       
-      <div class="certs-header">
+      <div class="certs-header scroll-reveal reveal-slide-up">
         <h2 class="certs-title">Certifications & Credentials</h2>
         <p class="certs-subtitle">Explore academic validations, technical courses, and practical internship certificates.</p>
         
         <!-- Filter Tabs -->
-        <div class="cert-filters">
+        <div class="cert-filters scroll-reveal reveal-slide-up reveal-delay-1">
           <button class="filter-tab active" data-filter="all">All</button>
           <button class="filter-tab" data-filter="security">Security & Net</button>
           <button class="filter-tab" data-filter="sysadmin">Linux & SysAdmin</button>
@@ -334,11 +334,11 @@
       </div>
 
       <!-- Certificates Grid -->
-      <div class="certs-grid" id="certs-grid">
+      <div class="certs-grid scroll-reveal reveal-fade reveal-delay-2" id="certs-grid">
         
         <!-- Cert 1: Google Cybersecurity -->
         <div class="cert-card" data-category="security">
-          <div class="cert-card-icon"><i class='bx bxs-shield-alt-2'></i></div>
+          <div class="cert-card-icon"><i class='bx bxl-google'></i></div>
           <div class="cert-card-info">
             <span class="cert-issuer">Google</span>
             <h3 class="cert-name">Google Cybersecurity Certificate</h3>
@@ -349,18 +349,6 @@
           </a>
         </div>
 
-        <!-- Cert 2: RHCSA Internship -->
-        <div class="cert-card" data-category="sysadmin">
-          <div class="cert-card-icon"><i class='bx bxl-redhat'></i></div>
-          <div class="cert-card-info">
-            <span class="cert-issuer">Red Hat Internship</span>
-            <h3 class="cert-name">RHCSA Internship Certificate</h3>
-            <p class="cert-details">Documented practical experience focusing on systems scaling, policies controls, and active server system configurations.</p>
-          </div>
-          <a href="certs/RHCSA_Internship_Cert.pdf" target="_blank" class="cert-view-btn">
-            View Certificate <i class='bx bx-link-external'></i>
-          </a>
-        </div>
 
         <!-- Cert 3: RedHat Training -->
         <div class="cert-card" data-category="sysadmin">
@@ -390,7 +378,7 @@
 
         <!-- Cert 5: Cloud Computing -->
         <div class="cert-card" data-category="cloud">
-          <div class="cert-card-icon"><i class='bx bx-cloud'></i></div>
+          <div class="cert-card-icon"><i class='bx bxs-graduation'></i></div>
           <div class="cert-card-info">
             <span class="cert-issuer">NPTEL / IIT</span>
             <h3 class="cert-name">Cloud Computing Certification</h3>
@@ -403,7 +391,7 @@
 
         <!-- Cert 6: Python Data Science -->
         <div class="cert-card" data-category="cloud">
-          <div class="cert-card-icon"><i class='bx bxl-python'></i></div>
+          <div class="cert-card-icon"><i class='bx bxs-graduation'></i></div>
           <div class="cert-card-info">
             <span class="cert-issuer">NPTEL / IIT</span>
             <h3 class="cert-name">Python for Data Science</h3>
@@ -416,7 +404,7 @@
 
         <!-- Cert 7: Joy of Python -->
         <div class="cert-card" data-category="cloud">
-          <div class="cert-card-icon"><i class='bx bxl-python'></i></div>
+          <div class="cert-card-icon"><i class='bx bxs-graduation'></i></div>
           <div class="cert-card-info">
             <span class="cert-issuer">NPTEL / IIT</span>
             <h3 class="cert-name">The Joy of Computing using Python</h3>
@@ -429,7 +417,7 @@
 
         <!-- Cert 8: Networking Basics -->
         <div class="cert-card" data-category="security">
-          <div class="cert-card-icon"><i class='bx bx-git-branch'></i></div>
+          <div class="cert-card-icon"><i class='bx bx-network-chart'></i></div>
           <div class="cert-card-info">
             <span class="cert-issuer">Cisco</span>
             <h3 class="cert-name">Computer Networking Basics</h3>
@@ -442,7 +430,7 @@
 
         <!-- Cert 9: Design Thinking -->
         <div class="cert-card" data-category="security">
-          <div class="cert-card-icon"><i class='bx bx-bulb'></i></div>
+          <div class="cert-card-icon"><i class='bx bxs-graduation'></i></div>
           <div class="cert-card-info">
             <span class="cert-issuer">NPTEL / IIT</span>
             <h3 class="cert-name">Design Thinking Course Certification</h3>
