@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jagadeeshwaran S | Cybersecurity Portfolio</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans for UI & Caveat for doodles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- Boxicons for Modern Vector Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow-wrapper">
+    <div class="glow-blob gb-1"></div>
+    <div class="glow-blob gb-2"></div>
+    <div class="glow-blob gb-3"></div>
+  </div>
+
+  <!-- Background Decorative Spiral Lines for Hero -->
+  <div class="bg-spiral-wrapper">
+    <svg class="bg-spiral" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-100 200 C 300 150, 400 600, 100 800 C -100 950, 400 1100, 800 900 C 1100 700, 850 300, 600 200 C 400 100, 200 400, 350 600 C 450 700, 700 650, 750 450 C 800 250, 500 150, 450 300 C 400 400, 600 550, 650 450" stroke="rgba(240, 180, 40, 0.15)" stroke-width="1.5" />
+      <path d="M-50 250 C 350 200, 450 650, 150 850 C -50 1000, 450 1150, 850 950 C 1150 750, 900 350, 650 250 C 450 150, 250 450, 400 650 C 500 750, 750 700, 800 500 C 850 300, 550 200, 500 350 C 450 450, 650 600, 700 500" stroke="rgba(240, 180, 40, 0.1)" stroke-width="1" />
+    </svg>
+  </div>
+
+  <!-- Header Navigation -->
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <a href="#home">JS<span>.</span></a>
+      </div>
+      <nav class="nav-links">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About me</a>
+        <a href="#projects">Showcase</a>
+        <a href="#certifications">Certifications</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="action-btn" id="theme-toggle" title="Toggle Theme">
+          <i class='bx bx-sun' id="theme-icon"></i>
+        </button>
+        <button class="action-btn" id="contact-btn-header" title="Get in touch">
+          <i class='bx bx-phone'></i>
+        </button>
+      </div>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+        <i class='bx bx-menu'></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="mobile-menu-close" id="mobile-menu-close">&times;</button>
+    <a href="#home" class="mobile-link active">Home</a>
+    <a href="#about" class="mobile-link">About me</a>
+    <a href="#projects" class="mobile-link">Showcase</a>
+    <a href="#certifications" class="mobile-link">Certifications</a>
+    <button class="action-btn" id="mobile-theme-toggle" title="Toggle Theme" style="margin-top: 20px;">
+      <i class='bx bx-sun' id="mobile-theme-icon"></i>
+    </button>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="hero-container">
+      
+      <!-- Hero Left: Content & Call to Actions -->
+      <div class="hero-content">
+        <div class="greeting-wrapper">
+          <span class="greeting">Hi</span><span class="comma">,</span>
+        </div>
+        <h1 class="hero-title">
+          I am <span class="accent">Jagadeeshwaran S</span>
+        </h1>
+        <p class="hero-subtitle">
+          Cybersecurity Enthusiast and Offensive Security Specialist. Specialize in network security, system hardening, and threat-validation workflows.
+        </p>
+        <div class="hero-buttons">
+          <button class="btn-outline" id="get-in-touch-hero">
+            Get in touch
+          </button>
+          <a href="certs/Resume.pdf" target="_blank" class="btn-primary">
+            Download CV
+            <span class="download-circle">
+              <i class='bx bx-download'></i>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Right: Portrait & Interactive Floating Badges -->
+      <div class="hero-graphic">
+        
+        <!-- Yellow Backdrop Splat -->
+        <div class="backdrop-blob"></div>
+        
+        <!-- Portrait Container -->
+        <div class="portrait-frame">
+          <img src="dp/1777225327525.png" alt="Jagadeeshwaran S portrait" class="portrait-img">
+        </div>
+
+        <!-- Floating Badge 1: Tech Pill -->
+        <div class="floating-badge badge-top-left" data-speed="1.2">
+          <div class="badge-icon icon-kali">
+            <i class='bx bx-terminal'></i>
+          </div>
+          <span class="badge-text">Kali Linux</span>
+        </div>
+
+        <!-- Floating Badge 2: Exp Pill -->
+        <div class="floating-badge badge-mid-right" data-speed="1.8">
+          <div class="badge-meta">
+            <span class="badge-title">Cybersecurity</span>
+            <span class="badge-desc">Offensive & Defensive</span>
+          </div>
+        </div>
+
+        <!-- Floating Badge 3: Certification Pill -->
+        <div class="floating-badge badge-bottom-left" data-speed="1.5">
+          <div class="badge-icon icon-google">
+            <i class='bx bxl-google'></i>
+          </div>
+          <span class="badge-text">Google Certified</span>
+        </div>
+
+        <!-- Floating Decorative 3D sphere -->
+        <div class="floating-sphere" data-speed="2"></div>
+        
+        <!-- Floating Sketch Doodle -->
+        <div class="floating-doodle">
+          <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20 C 30 10, 45 45, 55 50 C 65 55, 90 20, 80 70 C 70 90, 30 75, 40 40 C 45 25, 75 35, 65 60" stroke="#121212" stroke-width="3" stroke-linecap="round" fill="none" />
+          </svg>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Floating Social Links on Right Edge -->
+    <div class="social-sidebar">
+      <a href="https://linkedin.com/in/jagadeeshwaran1508" target="_blank" class="social-link" title="LinkedIn">
+        <i class='bx bxl-linkedin'></i>
+      </a>
+      <a href="https://github.com/jagadeeshs390" target="_blank" class="social-link" title="GitHub">
+        <i class='bx bxl-github'></i>
+      </a>
+      <a href="mailto:jagadeeshs390@gmail.com" class="social-link" title="Email Developer">
+        <i class='bx bx-envelope'></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Partner/Brands Logo Bar -->
+  <section class="partners-section">
+    <div class="partners-container">
+      <div class="partner-item">
+        <i class='bx bxl-google partner-icon'></i>
+        <span>Google Security</span>
+      </div>
+      <div class="partner-item">
+        <i class='bx bxl-redhat partner-icon'></i>
+        <span>Red Hat Enterprise</span>
+      </div>
+      <div class="partner-item">
+        <i class='bx bxl-microsoft partner-icon'></i>
+        <span>Azure Cloud</span>
+      </div>
+      <div class="partner-item">
+        <i class='bx bxl-python partner-icon'></i>
+        <span>Python Foundation</span>
+      </div>
+      <div class="partner-item font-nptel">
+        <i class='bx bx-certification partner-icon'></i>
+        <span>NPTEL IIT</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me Section (Dark Theme) -->
+  <section id="about" class="about-section">
+    <div class="about-container">
+      
+      <!-- Section Title -->
+      <h2 class="about-section-title">About Me</h2>
+      
+      <!-- Content Grid -->
+      <div class="about-grid">
+        <!-- Left: Bio Statement -->
+        <div class="about-bio">
+          <p>
+            Talented cybersecurity enthusiast with a strong focus on offensive security auditing, network analysis, and system architecture protection. Combining server systems hardening practices with proactive scripting, I identify hidden risks before adversaries can exploit them. 
+          </p>
+          <p>
+            I actively bridge the gap between classroom computer network theories and adversarial deployment spaces, leveraging operating systems expertise to secure workflows and preserve network integrity.
+          </p>
+        </div>
+        
+        <!-- Right: Stats Grid -->
+        <div class="about-stats">
+          <div class="stat-box">
+            <h3 class="stat-number">1+</h3>
+            <p class="stat-label">Years of<br>Project Dev</p>
+          </div>
+          <div class="stat-box">
+            <h3 class="stat-number">10+</h3>
+            <p class="stat-label">Professional<br>Credentials</p>
+          </div>
+          <div class="stat-box">
+            <h3 class="stat-number">6+</h3>
+            <p class="stat-label">Core Technical<br>Competencies</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Services Sub-Grid -->
+      <div class="services-wrapper">
+        <h3 class="services-title">Services I offer</h3>
+        <div class="services-grid">
+          
+          <!-- Card 1: Lime Green -->
+          <div class="service-card card-lime">
+            <div class="service-icon">
+              <i class='bx bx-terminal'></i>
+            </div>
+            <h4 class="service-name">Offensive Security</h4>
+            <p class="service-desc">
+              Conducting meticulous web application audits, port reconnaissance, and network vulnerability inspections.
+            </p>
+          </div>
+
+          <!-- Card 2: Mint Green -->
+          <div class="service-card card-mint">
+            <div class="service-icon">
+              <i class='bx bx-shield-quarter'></i>
+            </div>
+            <h4 class="service-name">System Hardening</h4>
+            <p class="service-desc">
+              Configuring Linux storage encryption (LUKS), firewall partitions, secure shell protocols, and system controls.
+            </p>
+          </div>
+
+          <!-- Card 3: Soft Violet -->
+          <div class="service-card card-violet">
+            <div class="service-icon">
+              <i class='bx bx-code-alt'></i>
+            </div>
+            <h4 class="service-name">Exploit Scripting</h4>
+            <p class="service-desc">
+              Writing specialized python exploit automation, secure multi-thread network sockets, and custom protocol verification scripts.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Recent Projects Section (Light Theme) -->
+  <section id="projects" class="projects-section">
+    <div class="projects-container">
+      
+      <!-- Section Title with sketchy circle decoration -->
+      <div class="projects-header">
+        <h2 class="projects-title">
+          Recent <span class="sketchy-wrapper">Project<svg class="sketchy-circle" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 50 C 5 20, 95 20, 95 50 C 95 80, 5 80, 7 50 C 9 30, 85 25, 90 55" stroke="#5e3bee" stroke-width="2" stroke-linecap="round" fill="none"/></svg></span>
+        </h2>
+      </div>
+
+      <!-- Centered Single Project Wrapper -->
+      <div class="single-project-container">
+        
+        <!-- Project Card: AgroSonic -->
+        <div class="single-project-card">
+          <div class="project-image-box">
+            <img src="images/agrosonic_mockup.png" alt="AgroSonic Defence System UI Dashboard" class="project-img-display">
+            <!-- If images fail to load, a fallback placeholder design is shown via CSS -->
+            <div class="project-img-fallback fb-agro">
+              <i class='bx bx-broadcast'></i>
+              <span>AgroSonic Defence</span>
+            </div>
+          </div>
+          <div class="project-info-box">
+            <h3 class="project-slide-title">AgroSonic Defence System</h3>
+            <p class="project-slide-desc">
+              An automated, adaptive IoT crop protection system integrating ESP32, dual-sensor confirmations, and machine learning classification to validate intruders and trigger custom audio-visual frequencies.
+            </p>
+            <div class="project-slide-tags">
+              <span>ESP32</span><span>IoT Sensors</span><span>Machine Learning</span>
+            </div>
+            <a href="certs/AgroSonic_Defence_Final_ppt.pptx" class="project-ppt-link" title="Download Project Presentation" download>
+              <i class='bx bx-download'></i> Download PPTX
+            </a>
+            <button class="project-ppt-preview-btn" onclick="openPptPreview('agro')" title="Preview Presentation Slides">
+              <i class='bx bx-slideshow'></i> Preview Slides
+            </button>
+            <button class="project-action-btn" onclick="openProjectModal('agro')">
+              <i class='bx bx-up-arrow-alt'></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Certifications & Credentials Section -->
+  <section id="certifications" class="certs-section">
+    <div class="certs-container">
+      
+      <div class="certs-header">
+        <h2 class="certs-title">Certifications & Credentials</h2>
+        <p class="certs-subtitle">Explore academic validations, technical courses, and practical internship certificates.</p>
+        
+        <!-- Filter Tabs -->
+        <div class="cert-filters">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="security">Security & Net</button>
+          <button class="filter-tab" data-filter="sysadmin">Linux & SysAdmin</button>
+          <button class="filter-tab" data-filter="cloud">Cloud & Code</button>
+        </div>
+      </div>
+
+      <!-- Certificates Grid -->
+      <div class="certs-grid" id="certs-grid">
+        
+        <!-- Cert 1: Google Cybersecurity -->
+        <div class="cert-card" data-category="security">
+          <div class="cert-card-icon"><i class='bx bxs-shield-alt-2'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">Google</span>
+            <h3 class="cert-name">Google Cybersecurity Certificate</h3>
+            <p class="cert-details">Professional certification verifying threat identification, network audits, and digital incident response workflows.</p>
+          </div>
+          <a href="certs/Google_Cybersecurity_Cert.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+        <!-- Cert 2: RHCSA Internship -->
+        <div class="cert-card" data-category="sysadmin">
+          <div class="cert-card-icon"><i class='bx bxl-redhat'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">Red Hat Internship</span>
+            <h3 class="cert-name">RHCSA Internship Certificate</h3>
+            <p class="cert-details">Documented practical experience focusing on systems scaling, policies controls, and active server system configurations.</p>
+          </div>
+          <a href="certs/RHCSA_Internship_Cert.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+        <!-- Cert 3: RedHat Training -->
+        <div class="cert-card" data-category="sysadmin">
+          <div class="cert-card-icon"><i class='bx bxl-redhat'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">Red Hat Training</span>
+            <h3 class="cert-name">RedHat Training Certificate</h3>
+            <p class="cert-details">Completion verification for systems command configurations, core package orchestrations, and file system management.</p>
+          </div>
+          <a href="certs/RedHat Training.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+        <!-- Cert 4: Azure Cloud -->
+        <div class="cert-card" data-category="cloud">
+          <div class="cert-card-icon"><i class='bx bxl-microsoft'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">Microsoft</span>
+            <h3 class="cert-name">Azure Cloud Certificate</h3>
+            <p class="cert-details">Certification demonstrating cloud architecture foundations, virtualization, cloud networks, and Azure service integration.</p>
+          </div>
+          <a href="certs/Azure_Cloud_Cert.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+        <!-- Cert 5: Cloud Computing -->
+        <div class="cert-card" data-category="cloud">
+          <div class="cert-card-icon"><i class='bx bx-cloud'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">NPTEL / IIT</span>
+            <h3 class="cert-name">Cloud Computing Certification</h3>
+            <p class="cert-details">Academic course validation on distributed virtualization systems, hypervisor logic, and resource orchestration.</p>
+          </div>
+          <a href="certs/Cloud_Computing_Cert.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+        <!-- Cert 6: Python Data Science -->
+        <div class="cert-card" data-category="cloud">
+          <div class="cert-card-icon"><i class='bx bxl-python'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">NPTEL / IIT</span>
+            <h3 class="cert-name">Python for Data Science</h3>
+            <p class="cert-details">Certificate proving expertise in analytical computing libraries, structured dataset evaluations, and visual plotting.</p>
+          </div>
+          <a href="certs/Python_Data_Science_Cert.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+        <!-- Cert 7: Joy of Python -->
+        <div class="cert-card" data-category="cloud">
+          <div class="cert-card-icon"><i class='bx bxl-python'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">NPTEL / IIT</span>
+            <h3 class="cert-name">The Joy of Computing using Python</h3>
+            <p class="cert-details">Core programming certification validating logical operations, loops scripting, and module configurations.</p>
+          </div>
+          <a href="certs/Joy_Of_Python_Cert.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+        <!-- Cert 8: Networking Basics -->
+        <div class="cert-card" data-category="security">
+          <div class="cert-card-icon"><i class='bx bx-git-branch'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">Cisco</span>
+            <h3 class="cert-name">Computer Networking Basics</h3>
+            <p class="cert-details">Foundation course covering OSI Reference Layers, routing algorithms, protocol configurations, and subnet packet mapping.</p>
+          </div>
+          <a href="certs/Networking Basics.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+        <!-- Cert 9: Design Thinking -->
+        <div class="cert-card" data-category="security">
+          <div class="cert-card-icon"><i class='bx bx-bulb'></i></div>
+          <div class="cert-card-info">
+            <span class="cert-issuer">NPTEL / IIT</span>
+            <h3 class="cert-name">Design Thinking Course Certification</h3>
+            <p class="cert-details">Verifying product design cycles, client empathy maps, wireframes ideation, and recursive prototyping validation.</p>
+          </div>
+          <a href="certs/Design_Thinking_Cert.pdf" target="_blank" class="cert-view-btn">
+            View Certificate <i class='bx bx-link-external'></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer Area -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-left">
+        <a href="#home" class="footer-logo">JS<span>.</span></a>
+        <p class="footer-copy">&copy; 2026 Jagadeeshwaran S. All rights reserved.</p>
+      </div>
+      <div class="footer-right">
+        <div class="footer-socials">
+          <a href="https://linkedin.com/in/jagadeeshwaran1508" target="_blank"><i class='bx bxl-linkedin'></i></a>
+          <a href="https://github.com/jagadeeshs390" target="_blank"><i class='bx bxl-github'></i></a>
+          <a href="mailto:jagadeeshs390@gmail.com"><i class='bx bx-envelope'></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Contact Modal -->
+  <div class="contact-modal" id="contact-modal">
+    <div class="modal-card">
+      <button class="modal-close" id="modal-close-btn">&times;</button>
+      <h2 class="modal-title">Get In Touch</h2>
+      <p class="modal-subtitle">Connect directly with me via any of the channels below.</p>
+      
+      <div class="contact-methods">
+        <a href="mailto:jagadeeshs390@gmail.com" class="method-card">
+          <div class="method-icon"><i class='bx bx-envelope'></i></div>
+          <div class="method-details">
+            <h4>Email</h4>
+            <p>jagadeeshs390@gmail.com</p>
+          </div>
+          <span class="method-arrow"><i class='bx bx-chevron-right'></i></span>
+        </a>
+
+        <a href="https://linkedin.com/in/jagadeeshwaran1508" target="_blank" class="method-card">
+          <div class="method-icon"><i class='bx bxl-linkedin'></i></div>
+          <div class="method-details">
+            <h4>LinkedIn</h4>
+            <p>linkedin.com/in/jagadeeshwaran1508</p>
+          </div>
+          <span class="method-arrow"><i class='bx bx-chevron-right'></i></span>
+        </a>
+
+        <a href="https://github.com/jagadeeshs390" target="_blank" class="method-card">
+          <div class="method-icon"><i class='bx bxl-github'></i></div>
+          <div class="method-details">
+            <h4>GitHub</h4>
+            <p>github.com/jagadeeshs390</p>
+          </div>
+          <span class="method-arrow"><i class='bx bx-chevron-right'></i></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Details Modal -->
+  <div class="project-modal" id="project-modal">
+    <div class="project-modal-card">
+      <button class="project-modal-close" id="project-modal-close-btn">&times;</button>
+      <h2 class="project-modal-title" id="pm-title">Project Name</h2>
+      <div class="project-modal-body">
+        <p id="pm-desc">Project details go here...</p>
+        <div class="project-modal-tags" id="pm-tags"></div>
+        <div class="project-modal-action" id="pm-action" style="margin-top: 30px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Document Preview Modal -->
+  <div class="preview-modal" id="preview-modal">
+    <div class="preview-modal-card">
+      <div class="preview-modal-header">
+        <h3 class="preview-modal-title" id="prev-title">Document Preview</h3>
+        <button class="preview-modal-close" id="preview-modal-close-btn">&times;</button>
+      </div>
+      <div class="preview-modal-body">
+        <iframe id="preview-iframe" src="" frameborder="0"></iframe>
+        <div id="preview-fallback-message" class="preview-fallback-message">
+          <i class='bx bx-info-circle'></i>
+          <p>Offline Preview Guide: To view your PowerPoint presentation directly in the browser without downloading it, please convert your presentation to a PDF file named <strong id="fallback-pdf-name">AgroSonic_Defence_Final_ppt.pdf</strong> and place it in your <code>certs/</code> folder.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script File -->
+  <script src="script.js"></script>
+</body>
+</html>
