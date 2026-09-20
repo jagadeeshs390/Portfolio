@@ -256,8 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const projectDetails = {
     agro: {
       title: 'AgroSonic Defence System',
-      desc: 'AgroSonic Defence System is an advanced automated agricultural security network. Powered by ESP32 microcontrollers, it incorporates ultrasonic ranging, thermal sensors, and machine learning models to identify pest/animal intruders. Upon threat validation, it triggers targeted acoustic frequencies and strobe lights to deter them safely while notifying farmers in real-time via local gateways.',
-      tags: ['ESP32', 'IoT Sensors', 'Machine Learning', 'Acoustic Deterrents'],
+      desc: 'AgroSonic Defence System is an advanced automated agricultural security network. Powered by ESP32 microcontrollers, it incorporates ultrasonic ranging, thermal sensors, and machine learning models to identify pest/animal intruders. Upon threat validation, it triggers targeted acoustic frequencies and strobe lights to deter them safely while notifying farmers in real-time via local gateways. Aimed at reducing 30–40% annual crop losses while significantly enhancing agricultural resilience.',
+      tags: ['ESP32', 'IoT Sensors', 'Machine Learning', 'Acoustic Deterrents', 'Crop Resilience'],
       pptUrl: 'certs/AgroSonic_Defence_Final_ppt.pptx'
     }
   };
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.openPptPreview = function(projectId) {
     const proj = projectDetails[projectId];
     if (proj && previewModal) {
-      previewTitle.textContent = `${proj.title} - Presentation`;
+      if (previewTitle) previewTitle.textContent = `${proj.title} - Presentation`;
       const pptPath = proj.pptUrl;
       const pdfPath = pptPath.replace('.pptx', '.pdf');
 
@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Direct load works consistently offline, under file:// protocols, and on local web servers without CORS blocks.
       previewIframe.src = pdfPath;
       previewIframe.style.display = 'block';
-      fallbackMsg.style.display = 'none';
+      if (fallbackMsg) fallbackMsg.style.display = 'none';
 
       previewModal.classList.add('active');
     }
