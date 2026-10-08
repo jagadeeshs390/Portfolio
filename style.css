@@ -2,7 +2,7 @@
    CSS DESIGN SYSTEM & PREMIUM VARIABLE TOKENS
    ========================================== */
 :root {
-  /* Colors - Dark Theme (Default) */
+  /* Colors - Dark Theme Base */
   --bg-primary: #0b0b0d;
   --bg-secondary: #121215;
   --bg-dark: #070708;
@@ -43,7 +43,7 @@
 }
 
 body.light-theme {
-  /* Colors - Light Theme Override */
+  /* Colors - Light Theme (Default) */
   --bg-primary: #ffffff;
   --bg-secondary: #fbfbfc;
   --bg-dark: #121212;
@@ -2114,7 +2114,7 @@ footer {
   padding: 48px;
   position: relative;
   box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border-light);
   transform: scale(0.9);
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }

@@ -7,43 +7,67 @@ document.addEventListener('DOMContentLoaded', () => {
   window.scrollTo(0, 0);
 
   // ==========================================
-  // LIGHT/DARK THEME SYSTEM
+  // LIGHT/DARK THEME SYSTEM (DEFAULT: LIGHT THEME)
   // ==========================================
   const themeToggleBtn = document.getElementById('theme-toggle');
   const themeIcon = document.getElementById('theme-icon');
   const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
   const mobileThemeIcon = document.getElementById('mobile-theme-icon');
 
-  function setTheme(theme) {
+  function setTheme(theme, persist = true) {
     if (theme === 'light') {
       document.body.classList.add('light-theme');
       if (themeIcon) themeIcon.className = 'bx bx-moon';
       if (mobileThemeIcon) mobileThemeIcon.className = 'bx bx-moon';
-      localStorage.setItem('portfolio-theme', 'light');
+      if (themeToggleBtn) themeToggleBtn.setAttribute('title', 'Switch to Dark Theme');
+      if (mobileThemeToggleBtn) mobileThemeToggleBtn.setAttribute('title', 'Switch to Dark Theme');
+      if (persist) {
+        try {
+          localStorage.setItem('portfolio-theme-preference', 'light');
+        } catch (e) {}
+      }
     } else {
       document.body.classList.remove('light-theme');
       if (themeIcon) themeIcon.className = 'bx bx-sun';
       if (mobileThemeIcon) mobileThemeIcon.className = 'bx bx-sun';
-      localStorage.setItem('portfolio-theme', 'dark');
+      if (themeToggleBtn) themeToggleBtn.setAttribute('title', 'Switch to Light Theme');
+      if (mobileThemeToggleBtn) mobileThemeToggleBtn.setAttribute('title', 'Switch to Light Theme');
+      if (persist) {
+        try {
+          localStorage.setItem('portfolio-theme-preference', 'dark');
+        } catch (e) {}
+      }
     }
   }
 
-  // Check saved preference, default to dark
-  const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
-  setTheme(savedTheme);
+  // Clear obsolete key from older builds that forced dark mode
+  try {
+    if (localStorage.getItem('portfolio-theme') && !localStorage.getItem('portfolio-theme-preference')) {
+      localStorage.removeItem('portfolio-theme');
+    }
+  } catch (e) {}
+
+  // Check saved preference; default to light theme
+  let savedTheme = 'light';
+  try {
+    savedTheme = localStorage.getItem('portfolio-theme-preference') || 'light';
+  } catch (e) {}
+
+  // Apply theme without re-writing localStorage unnecessarily on read
+  setTheme(savedTheme, false);
 
   // Toggle button actions
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
       const currentTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
-      setTheme(currentTheme);
+      setTheme(currentTheme, true);
     });
   }
 
   if (mobileThemeToggleBtn) {
     mobileThemeToggleBtn.addEventListener('click', () => {
       const currentTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
-      setTheme(currentTheme);
+      setTheme(currentTheme, true);
     });
   }
 
