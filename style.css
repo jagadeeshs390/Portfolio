@@ -595,6 +595,7 @@ body.light-theme .nav-links a.active {
   letter-spacing: -2px;
   background: linear-gradient(135deg, var(--color-primary) 30%, var(--accent-purple) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -617,6 +618,7 @@ body.light-theme .nav-links a.active {
 .hero-title .accent {
   background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-cyan) 80%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
 }
@@ -1156,6 +1158,7 @@ body.light-theme .nav-links a.active {
   line-height: 1;
   background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
