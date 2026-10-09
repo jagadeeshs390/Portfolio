@@ -500,4 +500,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fallback if browser doesn't support IntersectionObserver
     revealElements.forEach(el => el.classList.add('active'));
   }
+
+  // ==========================================
+  // DYNAMIC LIQUID GLASS SPECULAR SPOTLIGHT
+  // ==========================================
+  const glassCards = document.querySelectorAll('.service-card, .timeline-card, .skill-category-card, .cert-card, .single-project-card, .about-bio, .stat-box');
+  
+  glassCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
 });
