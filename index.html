@@ -16,12 +16,14 @@
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="light-theme">
-  <!-- Theme Init: Default is Light Theme; applies Dark Theme instantly if viewer previously explicitly toggled it -->
+<body>
+  <!-- Theme Init: Default is Dark Theme; applies Light Theme only if viewer explicitly selected it -->
   <script>
     (function () {
       try {
-        if (localStorage.getItem('portfolio-theme-preference') === 'dark') {
+        if (localStorage.getItem('portfolio-theme-preference-v2') === 'light') {
+          document.body.classList.add('light-theme');
+        } else {
           document.body.classList.remove('light-theme');
         }
       } catch (e) {}
@@ -59,8 +61,8 @@
         <a href="#certifications">Certifications</a>
       </nav>
       <div class="nav-actions">
-        <button class="action-btn" id="theme-toggle" title="Switch to Dark Theme">
-          <i class='bx bx-moon' id="theme-icon"></i>
+        <button class="action-btn" id="theme-toggle" title="Switch to Light Theme">
+          <i class='bx bx-sun' id="theme-icon"></i>
         </button>
         <button class="action-btn" id="contact-btn-header" title="Get in touch">
           <i class='bx bx-phone'></i>
@@ -70,9 +72,12 @@
         <i class='bx bx-menu'></i>
       </button>
     </div>
+    <!-- iOS Liquid Scroll Indicator -->
+    <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
   </header>
 
-  <!-- Mobile Navigation Menu -->
+  <!-- Mobile Navigation Menu & Backdrop Overlay -->
+  <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
   <div class="mobile-menu" id="mobile-menu">
     <button class="mobile-menu-close" id="mobile-menu-close">&times;</button>
     <a href="#home" class="mobile-link active">Home</a>
@@ -81,8 +86,8 @@
     <a href="#skills" class="mobile-link">Skills</a>
     <a href="#projects" class="mobile-link">Showcase</a>
     <a href="#certifications" class="mobile-link">Certifications</a>
-    <button class="action-btn" id="mobile-theme-toggle" title="Switch to Dark Theme" style="margin-top: 20px;">
-      <i class='bx bx-moon' id="mobile-theme-icon"></i>
+    <button class="action-btn" id="mobile-theme-toggle" title="Switch to Light Theme" style="margin-top: 20px;">
+      <i class='bx bx-sun' id="mobile-theme-icon"></i>
     </button>
   </div>
 
@@ -224,16 +229,16 @@
         
         <!-- Right: Stats Grid -->
         <div class="about-stats scroll-reveal reveal-slide-right">
-          <div class="stat-box">
-            <h3 class="stat-number">8.61</h3>
+          <div class="stat-box scroll-reveal reveal-slide-up reveal-delay-1">
+            <h3 class="stat-number" data-target="8.61" data-decimals="2">0.00</h3>
             <p class="stat-label">B.E. Cybersecurity<br>CGPA</p>
           </div>
-          <div class="stat-box">
-            <h3 class="stat-number">10+</h3>
+          <div class="stat-box scroll-reveal reveal-slide-up reveal-delay-2">
+            <h3 class="stat-number" data-target="10" data-suffix="+">0+</h3>
             <p class="stat-label">Professional<br>Credentials</p>
           </div>
-          <div class="stat-box">
-            <h3 class="stat-number">1+</h3>
+          <div class="stat-box scroll-reveal reveal-slide-up reveal-delay-3">
+            <h3 class="stat-number" data-target="1" data-suffix="+">0+</h3>
             <p class="stat-label">Years of<br>Hands-on Work</p>
           </div>
         </div>
@@ -775,6 +780,11 @@
       </div>
     </div>
   </div>
+
+  <!-- Floating iOS Glass Back-to-Top Pill -->
+  <button class="back-to-top-btn" id="back-to-top" title="Back to top" aria-label="Back to top">
+    <i class='bx bx-chevron-up'></i>
+  </button>
 
   <!-- Script File -->
   <script src="script.js"></script>

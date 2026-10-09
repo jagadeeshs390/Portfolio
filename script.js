@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.scrollTo(0, 0);
 
   // ==========================================
-  // LIGHT/DARK THEME SYSTEM (DEFAULT: LIGHT THEME)
+  // LIGHT/DARK THEME SYSTEM (DEFAULT: DARK THEME)
   // ==========================================
   const themeToggleBtn = document.getElementById('theme-toggle');
   const themeIcon = document.getElementById('theme-icon');
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (mobileThemeToggleBtn) mobileThemeToggleBtn.setAttribute('title', 'Switch to Dark Theme');
       if (persist) {
         try {
-          localStorage.setItem('portfolio-theme-preference', 'light');
+          localStorage.setItem('portfolio-theme-preference-v2', 'light');
         } catch (e) {}
       }
     } else {
@@ -34,26 +34,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (mobileThemeToggleBtn) mobileThemeToggleBtn.setAttribute('title', 'Switch to Light Theme');
       if (persist) {
         try {
-          localStorage.setItem('portfolio-theme-preference', 'dark');
+          localStorage.setItem('portfolio-theme-preference-v2', 'dark');
         } catch (e) {}
       }
     }
   }
 
-  // Clear obsolete key from older builds that forced dark mode
+  // Check saved preference; default to DARK theme
+  let savedTheme = 'dark';
   try {
-    if (localStorage.getItem('portfolio-theme') && !localStorage.getItem('portfolio-theme-preference')) {
-      localStorage.removeItem('portfolio-theme');
-    }
+    savedTheme = localStorage.getItem('portfolio-theme-preference-v2') || 'dark';
   } catch (e) {}
 
-  // Check saved preference; default to light theme
-  let savedTheme = 'light';
-  try {
-    savedTheme = localStorage.getItem('portfolio-theme-preference') || 'light';
-  } catch (e) {}
-
-  // Apply theme without re-writing localStorage unnecessarily on read
+  // Apply default theme
   setTheme(savedTheme, false);
 
   // Toggle button actions
@@ -90,25 +83,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const menuToggle = document.getElementById('menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
   const mobileLinks = document.querySelectorAll('.mobile-link');
 
-  if (menuToggle && mobileMenu) {
-    menuToggle.addEventListener('click', () => {
-      mobileMenu.classList.add('active');
-    });
+  function openMobileMenu() {
+    if (mobileMenu) mobileMenu.classList.add('active');
+    if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 
-  if (mobileMenuClose && mobileMenu) {
-    mobileMenuClose.addEventListener('click', () => {
-      mobileMenu.classList.remove('active');
-    });
+  function closeMobileMenu() {
+    if (mobileMenu) mobileMenu.classList.remove('active');
+    if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (menuToggle) {
+    menuToggle.addEventListener('click', openMobileMenu);
+  }
+
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+  }
+
+  if (mobileMenuOverlay) {
+    mobileMenuOverlay.addEventListener('click', closeMobileMenu);
   }
 
   mobileLinks.forEach(link => {
     link.addEventListener('click', () => {
-      mobileMenu.classList.remove('active');
-      
-      // Update active state in mobile menu
+      closeMobileMenu();
       mobileLinks.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
     });
@@ -515,4 +519,100 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.setProperty('--mouse-y', `${y}px`);
     });
   });
+
+  // ==========================================
+  // LIQUID SCROLL PROGRESS INDICATOR & BACK TO TOP
+  // ==========================================
+  const scrollProgressBar = document.getElementById('scroll-progress-bar');
+  const backToTopBtn = document.getElementById('back-to-top');
+  const glowBlobs = document.querySelectorAll('.glow-blob');
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+    // Update progress bar
+    if (scrollProgressBar) {
+      scrollProgressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
+    }
+
+    // Toggle Back to Top visibility
+    if (backToTopBtn) {
+      if (scrollTop > 400) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }
+
+    // Parallax on ambient glow blobs
+    if (glowBlobs.length > 0) {
+      const scrollFactor = scrollTop * 0.04;
+      glowBlobs.forEach((blob, idx) => {
+        const dir = idx % 2 === 0 ? 1 : -1;
+        blob.style.transform = `translateY(${dir * scrollFactor}px)`;
+      });
+    }
+  }, { passive: true });
+
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // ==========================================
+  // STATS NUMBER ROLL-UP ANIMATION ON SCROLL
+  // ==========================================
+  const statNumbers = document.querySelectorAll('.stat-number');
+  let statsAnimated = false;
+
+  function animateCounters() {
+    if (statsAnimated) return;
+    statsAnimated = true;
+
+    statNumbers.forEach(stat => {
+      const target = parseFloat(stat.getAttribute('data-target'));
+      const decimals = parseInt(stat.getAttribute('data-decimals')) || 0;
+      const suffix = stat.getAttribute('data-suffix') || '';
+      if (isNaN(target)) return;
+
+      const duration = 1800;
+      const startTime = performance.now();
+
+      function updateNumber(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const currentVal = (target * easeProgress).toFixed(decimals);
+
+        stat.textContent = `${currentVal}${suffix}`;
+
+        if (progress < 1) {
+          requestAnimationFrame(updateNumber);
+        } else {
+          stat.textContent = `${target.toFixed(decimals)}${suffix}`;
+        }
+      }
+
+      requestAnimationFrame(updateNumber);
+    });
+  }
+
+  const statsContainer = document.querySelector('.about-stats');
+  if (statsContainer && 'IntersectionObserver' in window) {
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    statsObserver.observe(statsContainer);
+  }
 });
