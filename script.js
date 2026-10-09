@@ -66,16 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // ==========================================
-  // HEADER SCROLL TRANSITION
+  // HEADER REFERENCE (SCROLL MANAGED VIA UNIFIED ENGINE)
   // ==========================================
   const header = document.querySelector('header');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
 
   // ==========================================
   // MOBILE NAVIGATION MENU
@@ -217,27 +210,32 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCategoryCounts();
 
   // ==========================================
-  // ACTIVE NAVLINK HIGHLIGHT ON SCROLL
+  // ACTIVE NAVLINK SECTION CACHE (ZERO FORCED REFLOWS)
   // ==========================================
   const sections = document.querySelectorAll('section');
   const navLinks = document.querySelectorAll('.nav-links a');
+  let sectionPositions = [];
 
-  window.addEventListener('scroll', () => {
-    let currentSectionId = 'home';
+  function cacheSectionPositions() {
+    sectionPositions = [];
     sections.forEach(sec => {
-      const sectionTop = sec.offsetTop - 150;
-      if (window.scrollY >= sectionTop) {
-        currentSectionId = sec.getAttribute('id');
+      const id = sec.getAttribute('id');
+      if (id) {
+        sectionPositions.push({
+          id: id,
+          top: sec.offsetTop - 160
+        });
       }
     });
+  }
+  cacheSectionPositions();
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${currentSectionId}`) {
-        link.classList.add('active');
-      }
-    });
-  });
+  // Debounced recalculation on resize / orientation change only
+  let sectionResizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(sectionResizeTimer);
+    sectionResizeTimer = setTimeout(cacheSectionPositions, 200);
+  }, { passive: true });
 
   // ==========================================
   // MODALS ORCHESTRATION (CONTACT & PROJECTS)
@@ -427,33 +425,59 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // HERO GRAPHIC PARALLAX INTERACTION
+  // HERO GRAPHIC PARALLAX INTERACTION (RAF THROTTLED)
   // ==========================================
   const heroGraphic = document.querySelector('.hero-graphic');
   const floatingElements = document.querySelectorAll('.floating-badge, .floating-sphere, .floating-doodle');
 
-  if (heroGraphic) {
-    heroGraphic.addEventListener('mousemove', (e) => {
-      const rect = heroGraphic.getBoundingClientRect();
-      // Mouse position relative to center of container (-0.5 to 0.5)
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (heroGraphic && canHover && !prefersReduced) {
+    let heroRect = null;
+    let heroRafId = null;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+
+    function renderHeroParallax() {
+      heroRafId = null;
+      if (!heroRect) return;
+
+      const normX = (targetMouseX - heroRect.left) / heroRect.width - 0.5;
+      const normY = (targetMouseY - heroRect.top) / heroRect.height - 0.5;
 
       floatingElements.forEach(el => {
         const speed = parseFloat(el.getAttribute('data-speed')) || 1;
-        const translateX = x * 35 * speed;
-        const translateY = y * 35 * speed;
-        
-        // Combine floating animation with mouse parallax
-        el.style.transform = `translate(${translateX}px, ${translateY}px)`;
+        const translateX = (normX * 35 * speed).toFixed(2);
+        const translateY = (normY * 35 * speed).toFixed(2);
+        el.style.transform = `translate3d(${translateX}px, ${translateY}px, 0)`;
       });
-    });
+    }
+
+    heroGraphic.addEventListener('mouseenter', () => {
+      heroRect = heroGraphic.getBoundingClientRect();
+    }, { passive: true });
+
+    heroGraphic.addEventListener('mousemove', (e) => {
+      if (!heroRect) heroRect = heroGraphic.getBoundingClientRect();
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+
+      if (!heroRafId) {
+        heroRafId = requestAnimationFrame(renderHeroParallax);
+      }
+    }, { passive: true });
 
     heroGraphic.addEventListener('mouseleave', () => {
+      if (heroRafId) {
+        cancelAnimationFrame(heroRafId);
+        heroRafId = null;
+      }
+      heroRect = null;
       floatingElements.forEach(el => {
         el.style.transform = '';
       });
-    });
+    }, { passive: true });
   }
 
   // ==========================================
@@ -488,13 +512,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
+          const el = entry.target;
+          el.classList.add('active');
+          observer.unobserve(el);
+          // Free GPU compositor layer after reveal animation completes
+          setTimeout(() => {
+            el.style.willChange = 'auto';
+          }, 900);
         }
       });
     }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
+      threshold: 0.08,
+      rootMargin: '0px 0px -30px 0px'
     });
 
     revealElements.forEach(el => {
@@ -506,53 +535,115 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // DYNAMIC LIQUID GLASS SPECULAR SPOTLIGHT
+  // DYNAMIC LIQUID GLASS SPECULAR SPOTLIGHT (RAF THROTTLED)
   // ==========================================
   const glassCards = document.querySelectorAll('.service-card, .timeline-card, .skill-category-card, .cert-card, .single-project-card, .about-bio, .stat-box');
   
-  glassCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
+  if (canHover) {
+    glassCards.forEach(card => {
+      let cardRect = null;
+      let cardRafId = null;
+      let mouseCardX = 0;
+      let mouseCardY = 0;
+
+      function renderCardSpotlight() {
+        cardRafId = null;
+        card.style.setProperty('--mouse-x', `${mouseCardX}px`);
+        card.style.setProperty('--mouse-y', `${mouseCardY}px`);
+      }
+
+      card.addEventListener('mouseenter', () => {
+        cardRect = card.getBoundingClientRect();
+      }, { passive: true });
+
+      card.addEventListener('mousemove', (e) => {
+        if (!cardRect) cardRect = card.getBoundingClientRect();
+        mouseCardX = Math.round(e.clientX - cardRect.left);
+        mouseCardY = Math.round(e.clientY - cardRect.top);
+
+        if (!cardRafId) {
+          cardRafId = requestAnimationFrame(renderCardSpotlight);
+        }
+      }, { passive: true });
+
+      card.addEventListener('mouseleave', () => {
+        if (cardRafId) {
+          cancelAnimationFrame(cardRafId);
+          cardRafId = null;
+        }
+        cardRect = null;
+      }, { passive: true });
     });
-  });
+  }
 
   // ==========================================
-  // LIQUID SCROLL PROGRESS INDICATOR & BACK TO TOP
+  // CONSOLIDATED MASTER SCROLL ENGINE (SINGLE RAF LOOP)
   // ==========================================
   const scrollProgressBar = document.getElementById('scroll-progress-bar');
   const backToTopBtn = document.getElementById('back-to-top');
   const glowBlobs = document.querySelectorAll('.glow-blob');
 
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  let scrollTicking = false;
+  let cachedScrollY = 0;
+  let isHeaderScrolled = false;
+  let isBackToTopVisible = false;
+  let activeNavId = '';
 
-    // Update progress bar
+  function handleUnifiedScroll() {
+    const scrollY = cachedScrollY;
+
+    // 1. Header glass morph on scroll
+    const shouldHeaderScroll = scrollY > 50;
+    if (shouldHeaderScroll !== isHeaderScrolled) {
+      isHeaderScrolled = shouldHeaderScroll;
+      header?.classList.toggle('scrolled', shouldHeaderScroll);
+    }
+
+    // 2. Active Section Navigation Link (Uses cached section offsets)
+    let matchedId = 'home';
+    for (let i = 0; i < sectionPositions.length; i++) {
+      if (scrollY >= sectionPositions[i].top) {
+        matchedId = sectionPositions[i].id;
+      }
+    }
+    if (matchedId !== activeNavId) {
+      activeNavId = matchedId;
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${matchedId}`);
+      });
+    }
+
+    // 3. Scroll Progress Indicator
     if (scrollProgressBar) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
       scrollProgressBar.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
     }
 
-    // Toggle Back to Top visibility
-    if (backToTopBtn) {
-      if (scrollTop > 400) {
-        backToTopBtn.classList.add('visible');
-      } else {
-        backToTopBtn.classList.remove('visible');
-      }
+    // 4. Back to Top Button
+    const shouldBackToTop = scrollY > 400;
+    if (shouldBackToTop !== isBackToTopVisible) {
+      isBackToTopVisible = shouldBackToTop;
+      backToTopBtn?.classList.toggle('visible', shouldBackToTop);
     }
 
-    // Parallax on ambient glow blobs
-    if (glowBlobs.length > 0) {
-      const scrollFactor = scrollTop * 0.04;
+    // 5. Subtle ambient glow parallax (desktop only, respecting motion preference)
+    if (!prefersReduced && window.innerWidth > 768 && glowBlobs.length > 0) {
+      const scrollFactor = (scrollY * 0.035).toFixed(1);
       glowBlobs.forEach((blob, idx) => {
         const dir = idx % 2 === 0 ? 1 : -1;
-        blob.style.transform = `translateY(${dir * scrollFactor}px)`;
+        blob.style.transform = `translate3d(0, ${dir * scrollFactor}px, 0)`;
       });
+    }
+
+    scrollTicking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    cachedScrollY = window.scrollY;
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(handleUnifiedScroll);
     }
   }, { passive: true });
 
@@ -564,6 +655,17 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
+  // ==========================================
+  // PAGE VISIBILITY: BATTERY & GPU PRESERVER
+  // ==========================================
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      document.body.classList.add('page-hidden');
+    } else {
+      document.body.classList.remove('page-hidden');
+    }
+  });
 
   // ==========================================
   // STATS NUMBER ROLL-UP ANIMATION ON SCROLL
